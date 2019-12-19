@@ -35,7 +35,6 @@ exports.up = function(knex) {
         .onUpdate("CASCADE");
     })
     .createTable("tickets", tbl => {
-      tbl.increments();
       tbl
         .integer("helpId")
         .unsigned()
@@ -52,6 +51,14 @@ exports.up = function(knex) {
         .inTable("students")
         .onUpdate("CASCADE")
         .onUpdate("CASCADE");
+      tbl
+        .boolean("openStatus")
+        .defaultTo(true)
+        .notNullable();
+      tbl
+        .boolean("resolved")
+        .defaultTo(false)
+        .notNullable();
       tbl.primary(["helpId", "studentId"]);
     });
 };
