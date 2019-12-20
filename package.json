@@ -6,12 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "knex:init": "knex init",
-    "local:latest": "knex migrate:latest",
-    "local:rollback": "knex migrate:rollback",
-    "local:seed": "knex seed:run",
-    "heroku:latest": "heroku run knex migrate:latest --app dev-desk-que-3-bw",
-    "heroku:rollback": "heroku pg:reset --app dev-desk-que-3-bw",
-    "heroku:seed": "heroku run knex seed:run --app dev-desk-que-3-bw",
+    "latest": "heroku run knex migrate:latest --app dev-desk-que-3-bw",
+    "rollback": "heroku pg:reset --app dev-desk-que-3-bw",
+    "seed": "heroku run knex seed:run --app dev-desk-que-3-bw",
     "start": "node index.js",
     "server": "nodemon index.js"
   },
