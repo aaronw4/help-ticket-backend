@@ -56,7 +56,7 @@ function getToken(username) {
     expiresIn: "12hr"
   };
 
-  return jwt.sign(payload, secret.jwtSecret, options);
+  return jwt.sign(payload, process.env.SECRET || secret.jwtSecret, options);
 }
 
 module.exports = router;
