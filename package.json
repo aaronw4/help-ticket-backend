@@ -8,7 +8,7 @@
     "knex:init": "knex init",
     "latest": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seedbase": "knex seed:run",
+    "seed": "heroku run knex seed:run --app dev-desk-que-3-bw",
     "start": "node index.js",
     "server": "nodemon index.js"
   },
