@@ -10,7 +10,8 @@
     "rollback": "heroku pg:reset --app dev-desk-que-3-bw",
     "seed": "heroku run knex seed:run --app dev-desk-que-3-bw",
     "start": "node index.js",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "logs": "heroku logs --app dev-desk-que-3-bw"
   },
   "keywords": [],
   "author": "",
