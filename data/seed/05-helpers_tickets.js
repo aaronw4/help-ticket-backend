@@ -5,8 +5,8 @@ exports.seed = function(knex) {
     .then(function() {
       // Inserts seed entries
       return knex("helpers_tickets").insert([
-        { helpId: 1, ticketId: 1 },
-        { helpId: 1, ticketId: 2 },
+        { helperId: 1, ticketId: 1 },
+        { helperId: 1, ticketId: 2 },
         { ticketId: 3 }
       ]);
     });
