@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secret = require("../secrets/secret") || "";
 const Helper = require("./helpers-models");
 const router = express.Router();
 
@@ -56,7 +55,11 @@ function getToken(username) {
     expiresIn: "12hr"
   };
 
-  return jwt.sign(payload, process.env.SECRET || secret.jwtSecret, options);
+  return jwt.sign(
+    payload,
+    process.env.JWT_SECRET || "THIS WAS SUPPOSED TO BE RANDOM",
+    options
+  );
 }
 
 module.exports = router;
