@@ -22,6 +22,9 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
       tbl.string("password").notNullable();
+    })
+    .createTable("tickets", tbl => {
+      tbl.increments();
       tbl.string("title").notNullable();
       tbl.string("description").notNullable();
       tbl.string("attempted").notNullable();
@@ -33,24 +36,6 @@ exports.up = function(knex) {
         .inTable("categories")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-    })
-    .createTable("tickets", tbl => {
-      tbl
-        .integer("helpId")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("helpers")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      tbl
-        .integer("studentId")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("students")
-        .onUpdate("CASCADE")
-        .onUpdate("CASCADE");
       tbl
         .boolean("openStatus")
         .defaultTo(true)
@@ -59,12 +44,39 @@ exports.up = function(knex) {
         .boolean("resolved")
         .defaultTo(false)
         .notNullable();
-      tbl.primary(["helpId", "studentId"]);
+      tbl
+        .integer("studentId")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("students")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+    })
+
+    .createTable("helpers_tickets", tbl => {
+      tbl
+        .integer("helperId")
+        .unsigned()
+        .references("id")
+        .inTable("helpers")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("ticketId")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("tickets")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+        .primary();
     });
 };
 
 exports.down = function(knex) {
   return knex.schema
+    .dropTableIfExists("helpers_tickets")
     .dropTableIfExists("tickets")
     .dropTableIfExists("students")
     .dropTableIfExists("categories")

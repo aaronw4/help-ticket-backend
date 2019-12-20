@@ -2,7 +2,8 @@ const db = require("../config/dbConfig");
 
 module.exports = {
   getHelpers,
-  addHelper
+  addHelper,
+  getHelper
 };
 
 function getHelpers() {
@@ -11,4 +12,8 @@ function getHelpers() {
 
 function addHelper(helper) {
   return db("helpers").insert(helper);
+}
+
+function getHelper(helperName) {
+  return db("helpers").where("username", helperName);
 }

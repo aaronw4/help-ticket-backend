@@ -7,27 +7,15 @@ exports.seed = function(knex) {
       return knex("students").insert([
         {
           username: "user1",
-          password: "pass",
-          title: "A",
-          description: "A",
-          attempted: "A",
-          categoryId: 1
+          password: "pass"
         },
         {
           username: "user2",
-          password: "pass",
-          title: "B",
-          description: "B",
-          attempted: "B",
-          categoryId: 2
+          password: "pass"
         },
         {
           username: "user3",
-          password: "pass",
-          title: "C",
-          description: "C",
-          attempted: "C",
-          categoryId: 3
+          password: "pass"
         }
       ]);
     });

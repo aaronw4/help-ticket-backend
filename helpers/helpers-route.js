@@ -1,5 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const secret = require("../secrets/secret");
 const Helper = require("./helpers-models");
 const router = express.Router();
 
@@ -9,8 +11,8 @@ router.post("/register", async (req, res) => {
   password = hash;
 
   try {
-    const addedUser = await Helper.addHelper({ username, password });
-    res.status(200).json(addedUser);
+    await Helper.addHelper({ username, password });
+    res.status(200).json({ message: "user successfully added to database" });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -24,5 +26,37 @@ router.get("/", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const helper = await Helper.getHelper(username);
+    if (helper.length && bcrypt.compareSync(password, helper[0].password)) {
+      const token = getToken(helper[0].username);
+      req.headers.authorization = token;
+      res.status(200).json({
+        message: `you have logged in as ${helper[0].username}`,
+        token: token
+      });
+    } else {
+      res.status(403).json({ message: "incorrect credentials" });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+function getToken(username) {
+  const payload = {
+    sub: username
+  };
+
+  const options = {
+    expiresIn: "12hr"
+  };
+
+  return jwt.sign(payload, secret.jwtSecret, options);
+}
 
 module.exports = router;
