@@ -4,12 +4,20 @@ require("dotenv").config();
 module.exports = {
   development: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: {
+      filename: process.env.DATABASE_URL
+    },
+    useNullAsDefault: true,
     migrations: {
       directory: "./data/migration"
     },
     seeds: {
       directory: "./data/seed"
+    },
+    pool: {
+      afterCreate: function(connection, done){
+        connection.run('PRAGMA foreign_keys = ON', done);
+      }
     }
   },
 
