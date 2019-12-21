@@ -6,7 +6,7 @@ module.exports = {
 
 function getTickets() {
   return db
-    .select("tickets", "students.username")
+    .select("tickets.*", "students.username")
     .from("tickets")
     .join("students", "students.id", "=", "tickets.studentId");
 }
