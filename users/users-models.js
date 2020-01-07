@@ -14,6 +14,8 @@ function addUser(user) {
 }
 
 function usersRolesAdd(userId) {
+  console.log("USER_ID: ", userId);
+  console.log(typeof userId);
   return db("users_roles").insert(userId);
 }
 

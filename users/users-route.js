@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
   try {
     const id = await User.addUser({ username, password });
     console.log("ID: ", id);
-    const successAdd = await User.usersRolesAdd(id[0]);
+    await User.usersRolesAdd(id[0]);
     res.status(200).json({ message: "user successfully added to database" });
   } catch (error) {
     res.status(500).json(error);
