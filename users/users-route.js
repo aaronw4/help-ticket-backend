@@ -4,15 +4,13 @@ const jwt = require("jsonwebtoken");
 const User = require("./users-models");
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
-  let { username, password } = req.body;
-  const hash = bcrypt.hashSync(password, 12);
-  password = hash;
-
+router.post("/register", registerMiddleware, async (req, res) => {
   try {
-    const id = await User.addUser({ username, password });
-    console.log("ID: ", id);
-    await User.usersRolesAdd(id[0]);
+    //const id = await User.addUser({ username, password });
+    //console.log("ID_USER: ", req.userId);
+    //await User.usersRolesAdd(req.userId);
+    await User.usersRolesAdd({ userId: req.userId }); //This works because .insert() expects an object
+    //something about my migrations for the users_roles table was breaking the code but the users_tickets table works.
     res.status(200).json({ message: "user successfully added to database" });
   } catch (error) {
     res.status(500).json(error);
@@ -76,6 +74,20 @@ async function verifyUser(req, res, next) {
   try {
     const user = await User.getUser(username);
     req.user = user[0];
+    next();
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+async function registerMiddleware(req, res, next) {
+  let { username, password } = req.body;
+  const hash = bcrypt.hashSync(password, 12);
+  password = hash;
+
+  try {
+    const id = await User.addUser({ username, password });
+    req.userId = id[0];
     next();
   } catch (error) {
     res.status(500).json(error);

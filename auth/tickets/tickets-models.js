@@ -53,5 +53,7 @@ function addTicket(ticket) {
 }
 
 function usersTicketsAdd(ticketId) {
+  console.log("TICKET_ID: ", ticketId);
+  console.log(typeof ticketId);
   return db("users_tickets").insert(ticketId);
 }
