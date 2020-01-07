@@ -1,13 +1,15 @@
 const express = require("express");
-const helperRoute = require("../helpers/helpers-route");
-const ticketRoute = require("../tickets/tickets-route");
+const userRoute = require("../users/users-route");
+const ticketRoute = require("../auth/tickets/tickets-route");
+const adminRoute = require("../auth/admin/admin-router");
 const cors = require("cors");
 const server = express();
 
 server.use(express.json());
 server.use(cors());
-server.use("/api/helper", helperRoute);
+server.use("/api/user", userRoute);
 server.use("/api/ticket", ticketRoute);
+server.use("/api/admin", adminRoute);
 
 server.get("/", (req, res) => {
   res.send("GET / Server base");

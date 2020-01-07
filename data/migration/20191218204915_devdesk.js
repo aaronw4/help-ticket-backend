@@ -1,12 +1,38 @@
 exports.up = function(knex) {
   return knex.schema
-    .createTable("helpers", tbl => {
+    .createTable("roles", tbl => {
+      tbl.increments();
+      tbl
+        .string("role")
+        .unique()
+        .notNullable();
+    })
+    .createTable("users", tbl => {
       tbl.increments();
       tbl
         .string("username")
         .unique()
         .notNullable();
       tbl.string("password").notNullable();
+    })
+    .createTable("users_roles", tbl => {
+      tbl.increments();
+      tbl
+        .integer("userId")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tbl
+        .integer("roleId")
+        .unsigned()
+        .references("id")
+        .inTable("roles")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+        .defaultTo(1);
     })
     .createTable("categories", tbl => {
       tbl.increments();
@@ -14,14 +40,6 @@ exports.up = function(knex) {
         .string("category")
         .notNullable()
         .unique();
-    })
-    .createTable("students", tbl => {
-      tbl.increments();
-      tbl
-        .string("username")
-        .unique()
-        .notNullable();
-      tbl.string("password").notNullable();
     })
     .createTable("tickets", tbl => {
       tbl.increments();
@@ -37,29 +55,23 @@ exports.up = function(knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       tbl
-        .boolean("openStatus")
-        .defaultTo(true)
-        .notNullable();
-      tbl
-        .boolean("resolved")
-        .defaultTo(false)
-        .notNullable();
-      tbl
-        .integer("studentId")
+        .integer("userId")
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("students")
+        .inTable("users")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+      tbl.boolean("openStatus").defaultTo(true);
+      tbl.boolean("resolved").defaultTo(false);
     })
 
-    .createTable("helpers_tickets", tbl => {
+    .createTable("users_tickets", tbl => {
       tbl
-        .integer("helperId")
+        .integer("userId")
         .unsigned()
         .references("id")
-        .inTable("helpers")
+        .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       tbl
@@ -76,9 +88,10 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists("helpers_tickets")
+    .dropTableIfExists("users_tickets")
     .dropTableIfExists("tickets")
-    .dropTableIfExists("students")
     .dropTableIfExists("categories")
-    .dropTableIfExists("helpers");
+    .dropTableIfExists("users_roles")
+    .dropTableIfExists("users")
+    .dropTableIfExists("roles");
 };

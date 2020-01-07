@@ -12,7 +12,7 @@ exports.seed = function(knex) {
           attempted: "A",
           openStatus: false,
           resolved: true,
-          studentId: 1
+          userId: 1
         },
         {
           title: "B",
@@ -21,7 +21,7 @@ exports.seed = function(knex) {
           attempted: "B",
           openStatus: false,
           resolved: false,
-          studentId: 2
+          userId: 2
         },
         {
           title: "C",
@@ -30,7 +30,7 @@ exports.seed = function(knex) {
           attempted: "C",
           openStatus: true,
           resolved: false,
-          studentId: 3
+          userId: 3
         }
       ]);
     });
