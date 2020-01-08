@@ -4,7 +4,7 @@ const restricted = require("../restricted-middleware");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", restricted, async (req, res) => {
   try {
     const tickets = await Ticket.getTickets();
     res.status(200).json(tickets);
@@ -78,8 +78,9 @@ router.get("/categories", restricted, async (req, res) => {
 });
 
 router.get("/users-tickets", async (req, res) => {
+  const { userId } = req.body;
   try {
-    const usersTickets = await Ticket.getUsersTickets();
+    const usersTickets = await Ticket.getUsersTickets(userId);
     res.status(200).json(usersTickets);
   } catch (error) {
     res.status(500).json(error);

@@ -62,6 +62,10 @@ function getCategories() {
   return db("categories");
 }
 
-function getUsersTickets() {
-  return db("users_tickets");
+function getUsersTickets(userId) {
+  return db.raw(
+    `select * from users_tickets join 
+    (select tickets.id, users.username, tickets.userId as ticketUserId from tickets join users on users.id = tickets.userId) 
+    on users_tickets.ticketId = id where userId = ${userId}`
+  );
 }
