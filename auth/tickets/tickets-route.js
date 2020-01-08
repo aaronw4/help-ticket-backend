@@ -77,6 +77,15 @@ router.get("/categories", restricted, async (req, res) => {
   }
 });
 
+router.get("/users-tickets", async (req, res) => {
+  try {
+    const usersTickets = Ticket.getUsersTickets();
+    res.status(200).json(usersTickets);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 async function verifyTicket(req, res, next) {
   const { ticketId } = req.body;
 

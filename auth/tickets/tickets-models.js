@@ -9,7 +9,8 @@ module.exports = {
   unassignTicket,
   addTicket,
   usersTicketsAdd,
-  getCategories
+  getCategories,
+  getUsersTickets
 };
 
 function getTickets() {
@@ -60,4 +61,8 @@ function usersTicketsAdd(ticketId) {
 
 function getCategories() {
   return db("categories");
+}
+
+function getUsersTickets() {
+  return db("users_tickets");
 }
