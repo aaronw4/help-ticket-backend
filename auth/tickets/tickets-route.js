@@ -9,7 +9,7 @@ router.get("/", restricted, async (req, res) => {
     const tickets = await Ticket.getTickets();
     res.status(200).json(tickets);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ message: "Error obtaining tickets" });
   }
 });
 
