@@ -66,6 +66,6 @@ function getUsersTickets(userId) {
   return db.raw(
     `select * from users_tickets join 
     (select tickets.id, users.username, tickets.userId as ticketUserId from tickets join users on users.id = tickets.userId) as ticketQuery
-    on users_tickets.ticketId = ticketQuery.id where userId = ${userId}`
+    on users_tickets.ticketId = id where userId = ${userId}`
   );
 }
