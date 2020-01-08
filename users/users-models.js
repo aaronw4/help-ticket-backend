@@ -6,7 +6,8 @@ module.exports = {
   getUser,
   getRoles,
   getRole,
-  editRole
+  addRole,
+  removeRole
 };
 
 function addUser(user) {
@@ -14,8 +15,6 @@ function addUser(user) {
 }
 
 function usersRolesAdd(userId) {
-  console.log("USER_ID: ", userId);
-  console.log(typeof userId);
   return db("users_roles").insert(userId);
 }
 
@@ -34,8 +33,12 @@ function getRole(roleId) {
     .where("id", roleId);
 }
 
-function editRole(userId, roleId) {
+function addRole(userId, roleId) {
+  return db("users_roles").insert({ userId: userId, roleId: roleId });
+}
+
+function removeRole(userId, roleId) {
   return db("users_roles")
-    .where("userId", userId)
-    .update("roleId", roleId);
+    .where({ userId: userId, roleId: roleId })
+    .del();
 }

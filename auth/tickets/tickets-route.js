@@ -24,7 +24,6 @@ router.post("/", restricted, async (req, res) => {
 
   try {
     const id = await Ticket.addTicket(ticket);
-    console.log("ID_TICKET: ", id);
     await Ticket.usersTicketsAdd(id);
     res.status(200).json({ message: "successfully added ticket" });
   } catch (error) {
@@ -52,14 +51,13 @@ router.put("/assign", restricted, verifyTicket, async (req, res) => {
 });
 
 router.put("/unassign", restricted, verifyTicket, async (req, res) => {
-  const { userId } = req.body;
   try {
     if (req.ticket.openStatus === 0) {
-      await Ticket.unassignTicket(userId, req.ticket.id);
+      await Ticket.unassignTicket(req.ticket.id);
       await Ticket.updateOpenStatus(req.ticket.id, req.ticket.openStatus);
       res
         .status(200)
-        .json({ message: "successfully assigned ticket to yourself" });
+        .json({ message: "successfully unassigned ticket from yourself" });
     } else {
       res
         .status(409)

@@ -42,10 +42,10 @@ function updateResolvedStatus(ticketId, resolvedStatus) {
     .update("resolved", !resolvedStatus);
 }
 
-function unassignTicket(userId, ticketId) {
+function unassignTicket(ticketId) {
   return db("users_tickets")
     .where("ticketId", ticketId)
-    .update("userId", userId);
+    .update("userId", null);
 }
 
 function addTicket(ticket) {
@@ -53,7 +53,5 @@ function addTicket(ticket) {
 }
 
 function usersTicketsAdd(ticketId) {
-  console.log("TICKET_ID: ", ticketId);
-  console.log(typeof ticketId);
   return db("users_tickets").insert(ticketId);
 }

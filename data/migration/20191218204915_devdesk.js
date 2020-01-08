@@ -16,7 +16,6 @@ exports.up = function(knex) {
       tbl.string("password").notNullable();
     })
     .createTable("users_roles", tbl => {
-      tbl.increments();
       tbl
         .integer("userId")
         .unsigned()
@@ -33,6 +32,7 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE")
         .defaultTo(1);
+      tbl.primary(["userId", "roleId"]);
     })
     .createTable("categories", tbl => {
       tbl.increments();

@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./users-models");
 const router = express.Router();
+const restricted = require("../auth/restricted-middleware");
 
 router.post("/register", registerMiddleware, async (req, res) => {
   try {
@@ -38,15 +39,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.put("/roles", verifyUser, async (req, res) => {
-  const { roleId } = req.body;
+router.post("/role", restricted, verifyUser, async (req, res) => {
+  const { roleId, edit } = req.body;
 
   try {
-    const role = await User.getRole(roleId);
-    await User.editRole(req.user.id, roleId);
-    res.status(200).json({
-      message: `successfully changed ${req.user.username}'s role to ${role[0]}`
-    });
+    if (edit === "add") {
+      const role = await User.getRole(roleId);
+      await User.addRole(req.user.id, roleId);
+      res.status(200).json({
+        message: `successfully changed ${req.user.username}'s role to ${role[0].role}`
+      });
+    } else if (edit === "remove") {
+      await User.removeRole(req.user.id, roleId);
+      const role = await User.getRole(roleId);
+      res.status(200).json({
+        message: `successfully removed ${req.user.username}'s role of ${role[0].role}`
+      });
+    } else {
+      res.status(400).json({
+        message:
+          "missing edit property that determines if role is added or removed"
+      });
+    }
   } catch (error) {
     res.status(500).json(error);
   }
