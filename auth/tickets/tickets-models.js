@@ -63,9 +63,19 @@ function getCategories() {
 }
 
 function getUsersTickets(userId) {
-  return db.raw(
-    `select * from users_tickets join 
-    (select tickets.id, users.username, tickets.userId as ticketUserId from tickets join users on users.id = tickets.userId) as query
-    on users_tickets.ticketId = query.id where users_tickets.userId = ${userId}`
-  );
+  // return db.raw(
+  //   `select * from users_tickets join
+  //   (select tickets.id, users.username, tickets.userId as ticketUserId from tickets join users on users.id = tickets.userId) as query
+  //   on users_tickets.ticketId = query.id where users_tickets.userId = ${userId}`
+  // );
+  return db("users_tickets")
+    .join("tickets", "users_tickets.ticketId", "=", "tickets.id")
+    .join("users", "users.id", "=", "tickets.userId")
+    .select(
+      "tickets.*",
+      "users_tickets.ticketId",
+      "users.username",
+      "users_tickets.userId as helperId"
+    )
+    .where("users_tickets.userId", userId);
 }
