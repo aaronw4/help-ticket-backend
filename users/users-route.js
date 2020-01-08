@@ -39,6 +39,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/role", restricted, async (req, res) => {
+  try {
+    const roles = User.getRoles();
+    res.status(200).json(roles);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.post("/role", restricted, verifyUser, async (req, res) => {
   const { roleId, edit } = req.body;
 

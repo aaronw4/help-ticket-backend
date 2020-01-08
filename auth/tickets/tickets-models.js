@@ -8,7 +8,8 @@ module.exports = {
   updateResolvedStatus,
   unassignTicket,
   addTicket,
-  usersTicketsAdd
+  usersTicketsAdd,
+  getCategories
 };
 
 function getTickets() {
@@ -54,4 +55,8 @@ function addTicket(ticket) {
 
 function usersTicketsAdd(ticketId) {
   return db("users_tickets").insert(ticketId);
+}
+
+function getCategories() {
+  return db("categories");
 }

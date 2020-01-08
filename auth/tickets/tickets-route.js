@@ -68,6 +68,15 @@ router.put("/unassign", restricted, verifyTicket, async (req, res) => {
   }
 });
 
+router.get("/categories", restricted, async (req, res) => {
+  try {
+    const categories = Ticket.getCategories();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 async function verifyTicket(req, res, next) {
   const { ticketId } = req.body;
 
