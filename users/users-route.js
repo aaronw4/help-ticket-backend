@@ -49,27 +49,28 @@ router.get("/role", restricted, async (req, res) => {
 });
 
 router.post("/role", restricted, verifyUser, async (req, res) => {
-  const { roleId, edit } = req.body;
+  const { roleId } = req.body;
 
   try {
-    if (edit === "add") {
-      const role = await User.getRole(roleId);
-      await User.addRole(req.user.id, roleId);
-      res.status(200).json({
-        message: `successfully changed ${req.user.username}'s role to ${role[0].role}`
-      });
-    } else if (edit === "remove") {
-      await User.removeRole(req.user.id, roleId);
-      const role = await User.getRole(roleId);
-      res.status(200).json({
-        message: `successfully removed ${req.user.username}'s role of ${role[0].role}`
-      });
-    } else {
-      res.status(400).json({
-        message:
-          "missing edit property that determines if role is added or removed"
-      });
-    }
+    const role = await User.getRole(roleId);
+    await User.addRole(req.user.id, roleId);
+    res.status(200).json({
+      message: `successfully changed ${req.user.username}'s role to ${role[0].role}`
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.delete("/role", restricted, verifyUser, async (req, res) => {
+  const { roleId } = req.body;
+
+  try {
+    await User.removeRole(req.user.id, roleId);
+    const role = await User.getRole(roleId);
+    res.status(200).json({
+      message: `successfully removed ${req.user.username}'s role of ${role[0].role}`
+    });
   } catch (error) {
     res.status(500).json(error);
   }
