@@ -79,7 +79,7 @@ router.get("/categories", restricted, async (req, res) => {
 
 router.get("/users-tickets", async (req, res) => {
   try {
-    const usersTickets = Ticket.getUsersTickets();
+    const usersTickets = await Ticket.getUsersTickets();
     res.status(200).json(usersTickets);
   } catch (error) {
     res.status(500).json(error);

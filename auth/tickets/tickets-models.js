@@ -14,13 +14,12 @@ module.exports = {
 };
 
 function getTickets() {
-  // return db
-  //   .select("tickets.*", "users.username", "categories.category")
-  //   .from("users_tickets")
-  //   .join("users", "users.id", "=", "tickets.userId")
-  //   .join("tickets", "tickets.id", "=", "users_tickets.ticketId")
-  //   .join("categories", "categories.id", "=", "tickets.categoryId");
-  return db("tickets");
+  return db
+    .select("tickets.*", "users.username", "categories.category")
+    .from("tickets")
+    .join("users", "users.id", "=", "tickets.userId")
+    .join("categories", "categories.id", "=", "tickets.categoryId");
+  //return db("tickets");
 }
 
 function getTicket(ticketId) {
