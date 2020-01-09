@@ -34,7 +34,7 @@ router.post("/", restricted, async (req, res) => {
 router.put("/assign", restricted, verifyTicket, async (req, res) => {
   const { userId } = req.body;
   try {
-    if (req.ticket.openStatus === 1) {
+    if (req.ticket.openStatus === 1 || req.ticket.openStatus === true) {
       await Ticket.assignTicket(userId, req.ticket.id);
       await Ticket.updateOpenStatus(req.ticket.id, req.ticket.openStatus);
       res
@@ -52,7 +52,7 @@ router.put("/assign", restricted, verifyTicket, async (req, res) => {
 
 router.put("/unassign", restricted, verifyTicket, async (req, res) => {
   try {
-    if (req.ticket.openStatus === 0) {
+    if (req.ticket.openStatus === 0 || req.ticket.openStatus === false) {
       await Ticket.unassignTicket(req.ticket.id);
       await Ticket.updateOpenStatus(req.ticket.id, req.ticket.openStatus);
       res
