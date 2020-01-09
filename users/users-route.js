@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/role", restricted, async (req, res) => {
   try {
-    const roles = User.getRoles();
+    const roles = await User.getRoles();
     res.status(200).json(roles);
   } catch (error) {
     res.status(500).json(error);

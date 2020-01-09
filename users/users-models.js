@@ -19,6 +19,7 @@ function usersRolesAdd(userId) {
 }
 
 function getUser(username) {
+  console.log("USER: ", username);
   return db("users").where("username", username);
 }
 
