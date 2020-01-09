@@ -86,6 +86,15 @@ router.get("/users-tickets/:id", restricted, async (req, res) => {
   }
 });
 
+router.put("/resolved", verifyTicket, async (req, res) => {
+  try {
+    await Ticket.resolveTicket(req.ticket.id, req.ticket.resolved);
+    res.status(200).json({ message: "Ticket resolve status has been updated" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 async function verifyTicket(req, res, next) {
   const { ticketId } = req.body;
 

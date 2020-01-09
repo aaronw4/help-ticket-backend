@@ -10,7 +10,8 @@ module.exports = {
   addTicket,
   usersTicketsAdd,
   getCategories,
-  getUsersTickets
+  getUsersTickets,
+  resolveTicket
 };
 
 function getTickets() {
@@ -78,4 +79,10 @@ function getUsersTickets(userId) {
       "users_tickets.userId as helperId"
     )
     .where("users_tickets.userId", userId);
+}
+
+function resolveTicket(ticketId, resolvedStatus) {
+  return db("tickets")
+    .where("id", ticketId)
+    .update("resolved", !resolvedStatus);
 }
