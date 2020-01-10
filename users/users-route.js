@@ -16,7 +16,6 @@ router.post("/register", registerMiddleware, async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-  const test = "";
 });
 
 router.get("/all", async (req, res) => {
@@ -133,6 +132,7 @@ async function registerMiddleware(req, res, next) {
     console.log("ID: ", id);
     console.log(typeof id);
     req.userId = id[0];
+    console.log("REQ_USERID: ", req.userId);
     next();
   } catch (error) {
     res.status(500).json(error);
