@@ -17,12 +17,15 @@ module.exports = {
 };
 
 function getTickets() {
+  // return db
+  //   .select("tickets.*", "users.username", "categories.category")
+  //   .from("tickets")
+  //   .join("users", "users.id", "=", "tickets.userId")
+  //   .join("categories", "categories.id", "=", "tickets.categoryId");
   return db
-    .select("tickets.*", "users.username", "categories.category")
+    .select("tickets.*", "users.username")
     .from("tickets")
-    .join("users", "users.id", "=", "tickets.userId")
-    .join("categories", "categories.id", "=", "tickets.categoryId");
-  //return db("tickets");
+    .join("users", "users.id", "=", "tickets.userId");
 }
 
 function getTicket(ticketId) {
