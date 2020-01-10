@@ -13,7 +13,9 @@ module.exports = {
 };
 
 function addUser(user) {
-  return db("users").insert(user);
+  return db("users")
+    .insert(user)
+    .first();
 }
 
 function usersRolesAdd(userId) {
