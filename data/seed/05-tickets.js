@@ -7,7 +7,7 @@ exports.seed = function(knex) {
       return knex("tickets").insert([
         {
           title: "A",
-          categoryId: 1,
+          category: "knex",
           description: "A",
           attempted: "A",
           openStatus: false,
@@ -16,7 +16,7 @@ exports.seed = function(knex) {
         },
         {
           title: "B",
-          categoryId: 2,
+          category: "javascript",
           description: "B",
           attempted: "B",
           openStatus: false,
@@ -25,7 +25,7 @@ exports.seed = function(knex) {
         },
         {
           title: "C",
-          categoryId: 3,
+          category: "css",
           description: "C",
           attempted: "C",
           openStatus: true,

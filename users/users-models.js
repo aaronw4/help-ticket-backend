@@ -13,20 +13,23 @@ module.exports = {
 };
 
 function addUser(user) {
+  //if(process.env.)
   return db("users")
     .insert(user)
-    .returning("id");
+    .returning("id"); //returning is necessary when needing to obtain column information from an update or insert in
 }
 
 function usersRolesAdd(userId) {
-  console.log("USERID: ", userId);
-  console.log(typeof userId);
   return db("users_roles").insert({ userId });
 }
 
 function getUser(username) {
-  console.log("USER: ", username);
-  return db("users").where("username", username);
+  return db
+    .select("*")
+    .from("users")
+    .join("users_roles", "users.id", "=", "users_roles.userId")
+    .join("roles", "users_roles.roleId", "=", "roles.id")
+    .where("username", username);
 }
 
 function getRoles() {

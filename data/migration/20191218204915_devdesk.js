@@ -35,6 +35,7 @@ exports.up = function(knex) {
       tbl.primary(["userId", "roleId"]);
     })
     .createTable("categories", tbl => {
+      //table exist but not used, because category was changed to a string instead of a table of strings
       tbl.increments();
       tbl
         .string("category")
@@ -46,14 +47,15 @@ exports.up = function(knex) {
       tbl.string("title").notNullable();
       tbl.string("description").notNullable();
       tbl.string("attempted").notNullable();
-      tbl
-        .integer("categoryId")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("categories")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      // tbl
+      //   .integer("categoryId")
+      //   .unsigned()
+      //   .notNullable()
+      //   .references("id")
+      //   .inTable("categories")
+      //   .onDelete("CASCADE")
+      //   .onUpdate("CASCADE");
+      tbl.string("category").notNullable();
       tbl
         .integer("userId")
         .unsigned()
