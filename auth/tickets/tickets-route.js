@@ -86,10 +86,38 @@ router.get("/users-tickets/:id", restricted, async (req, res) => {
   }
 });
 
-router.put("/resolved", verifyTicket, async (req, res) => {
+router.put("/resolved", restricted, verifyTicket, async (req, res) => {
   try {
     await Ticket.resolveTicket(req.ticket.id, req.ticket.resolved);
     res.status(200).json({ message: "Ticket resolve status has been updated" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.delete("/", verifyTicket, async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    await Ticket.deleteTicket(userId, req.ticket.id);
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.put("/:id", verifyTicket, async (req, res) => {
+  let ticketBody = {};
+
+  for (const property in req.body) {
+    if (property !== "ticketId") {
+      ticketBody[property] = req.body[property];
+    }
+  }
+
+  try {
+    await Ticket.editTicket(req.ticket.id, ticketBody, req.params.id);
+    res.status(200).json({ message: "successfully edited ticket" });
   } catch (error) {
     res.status(500).json(error);
   }

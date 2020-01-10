@@ -11,7 +11,9 @@ module.exports = {
   usersTicketsAdd,
   getCategories,
   getUsersTickets,
-  resolveTicket
+  resolveTicket,
+  deleteTicket,
+  editTicket
 };
 
 function getTickets() {
@@ -85,4 +87,16 @@ function resolveTicket(ticketId, resolvedStatus) {
   return db("tickets")
     .where("id", ticketId)
     .update("resolved", !resolvedStatus);
+}
+
+function deleteTicket(userId, ticketId) {
+  return db("tickets")
+    .where({ id: ticketId, userId: userId })
+    .del();
+}
+
+function editTicket(ticketId, editBody, userId) {
+  return db("tickets")
+    .where({ id: ticketId, userId: userId })
+    .update(editBody);
 }
