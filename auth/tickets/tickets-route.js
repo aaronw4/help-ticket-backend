@@ -102,7 +102,9 @@ router.delete("/", restricted, verifyTicket, async (req, res) => {
     await Ticket.deleteTicket(userId, req.ticket.id);
     res.status(204).end();
   } catch (error) {
-    res.status(500).json(error);
+    res
+      .status(500)
+      .json({ error, message: `userId: ${userId}, ticketId: ${ticketId}` });
   }
 });
 
