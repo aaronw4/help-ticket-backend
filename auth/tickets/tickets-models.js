@@ -57,7 +57,9 @@ function unassignTicket(ticketId) {
 }
 
 function addTicket(ticket) {
-  return db("tickets").insert(ticket, ["id"]);
+  return db("tickets")
+    .insert(ticket)
+    .returning("id");
 }
 
 function usersTicketsAdd(ticketId) {
