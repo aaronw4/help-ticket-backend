@@ -16,6 +16,7 @@ router.post("/register", registerMiddleware, async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
+  const test = "";
 });
 
 router.get("/all", async (req, res) => {
