@@ -15,7 +15,7 @@ module.exports = {
 function addUser(user) {
   return db("users")
     .insert(user)
-    .first();
+    .returning("id");
 }
 
 function usersRolesAdd(userId) {
