@@ -11,11 +11,13 @@ module.exports = {
 };
 
 function addUser(user) {
-  return db("users").insert(user, ["id"]);
+  return db("users").insert(user);
 }
 
 function usersRolesAdd(userId) {
-  return db("users_roles").insert(userId);
+  console.log("USERID: ", userId);
+  console.log(typeof userId);
+  return db("users_roles").insert({ userId });
 }
 
 function getUser(username) {

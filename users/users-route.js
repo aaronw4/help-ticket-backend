@@ -10,7 +10,7 @@ router.post("/register", registerMiddleware, async (req, res) => {
     //const id = await User.addUser({ username, password });
     //console.log("ID_USER: ", req.userId);
     //await User.usersRolesAdd(req.userId);
-    await User.usersRolesAdd({ userId: req.userId }); //This works because .insert() expects an object
+    await User.usersRolesAdd(req.userId); //This works because .insert() expects an object
     //something about my migrations for the users_roles table was breaking the code but the users_tickets table works.
     res.status(200).json({ message: "user successfully added to database" });
   } catch (error) {
@@ -111,6 +111,8 @@ async function registerMiddleware(req, res, next) {
 
   try {
     const id = await User.addUser({ username, password });
+    console.log("ID: ", id);
+    console.log(typeof id);
     req.userId = id[0];
     next();
   } catch (error) {

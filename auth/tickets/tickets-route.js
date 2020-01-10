@@ -95,7 +95,7 @@ router.put("/resolved", restricted, verifyTicket, async (req, res) => {
   }
 });
 
-router.delete("/", verifyTicket, async (req, res) => {
+router.delete("/", restricted, verifyTicket, async (req, res) => {
   const { userId } = req.body;
 
   try {
@@ -106,7 +106,7 @@ router.delete("/", verifyTicket, async (req, res) => {
   }
 });
 
-router.put("/:id", verifyTicket, async (req, res) => {
+router.put("/:id", restricted, verifyTicket, async (req, res) => {
   let ticketBody = {};
 
   for (const property in req.body) {
