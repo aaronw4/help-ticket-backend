@@ -96,13 +96,18 @@ router.put("/resolved", restricted, verifyTicket, async (req, res) => {
 });
 
 router.delete("/", restricted, verifyTicket, async (req, res) => {
+  /*when passing data to delete request
+   * in axios call use axios.delete(url, {data:{foo: bar}})
+   * because delete needs data to be there in the request body
+   * probably should have written this route like this /:userId/:ticketId or /userId/:userId/ticketId/:ticketId
+   */
   const { userId } = req.body;
 
   try {
     await Ticket.deleteTicket(userId, req.ticket.id);
     res.status(204).end();
   } catch (error) {
-    res.status(500).json({ a: `userId: ${userId}, ticketId: ${ticketId}` });
+    res.status(500).json(error);
   }
 });
 
