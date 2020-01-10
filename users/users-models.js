@@ -13,10 +13,13 @@ module.exports = {
 };
 
 function addUser(user) {
-  //if(process.env.)
-  return db("users")
-    .insert(user)
-    .returning("id"); //returning is necessary when needing to obtain column information from an update or insert in
+  if (process.env.NODE_ENV === undefined) {
+    return db("users").insert(user);
+  } else {
+    return db("users")
+      .insert(user)
+      .returning("id"); //returning is necessary when needing to obtain column information from an update or insert in
+  }
 }
 
 function usersRolesAdd(userId) {

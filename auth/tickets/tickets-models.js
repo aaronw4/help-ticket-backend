@@ -57,9 +57,13 @@ function unassignTicket(ticketId) {
 }
 
 function addTicket(ticket) {
-  return db("tickets")
-    .insert(ticket)
-    .returning("id");
+  if (process.env.NODE_ENV === "development") {
+    return db("tickets").insert(ticket);
+  } else {
+    return db("tickets")
+      .insert(ticket)
+      .returning("id");
+  }
 }
 
 function usersTicketsAdd(ticketId) {

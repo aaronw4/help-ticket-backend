@@ -129,10 +129,7 @@ async function registerMiddleware(req, res, next) {
 
   try {
     const id = await User.addUser({ username, password });
-    console.log("ID: ", id);
-    console.log(typeof id);
     req.userId = id[0];
-    console.log("REQ_USERID: ", req.userId);
     next();
   } catch (error) {
     res.status(500).json(error);
