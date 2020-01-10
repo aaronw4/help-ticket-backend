@@ -18,6 +18,24 @@ router.post("/register", registerMiddleware, async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  try {
+    const users = await User.getUser();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.get("/users-roles", async (req, res) => {
+  try {
+    const userRoles = await User.getUsersRoles();
+    res.status(200).json(userRoles);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 

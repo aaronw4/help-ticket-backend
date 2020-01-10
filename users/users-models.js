@@ -7,7 +7,9 @@ module.exports = {
   getRoles,
   getRole,
   addRole,
-  removeRole
+  removeRole,
+  getUsers,
+  getUsersRoles
 };
 
 function addUser(user) {
@@ -44,4 +46,12 @@ function removeRole(userId, roleId) {
   return db("users_roles")
     .where({ userId: userId, roleId: roleId })
     .del();
+}
+
+function getUsers() {
+  return db("users");
+}
+
+function getUsersRoles() {
+  return db("users_roles");
 }
