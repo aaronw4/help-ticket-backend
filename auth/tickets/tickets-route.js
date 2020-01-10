@@ -18,7 +18,7 @@ router.post("/", restricted, async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     attempted: req.body.attempted,
-    categoryId: req.body.categoryId,
+    category: req.body.category,
     userId: req.body.userId
   };
 
