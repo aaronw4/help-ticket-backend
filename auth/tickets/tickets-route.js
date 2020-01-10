@@ -24,7 +24,7 @@ router.post("/", restricted, async (req, res) => {
 
   try {
     const id = await Ticket.addTicket(ticket);
-    await Ticket.usersTicketsAdd(id);
+    await Ticket.usersTicketsAdd(id[0]);
     res.status(200).json({ message: "successfully added ticket" });
   } catch (error) {
     res.status(500).json(error);

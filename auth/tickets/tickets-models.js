@@ -63,7 +63,7 @@ function addTicket(ticket) {
 }
 
 function usersTicketsAdd(ticketId) {
-  return db("users_tickets").insert(ticketId);
+  return db("users_tickets").insert({ ticketId });
 }
 
 function getCategories() {
