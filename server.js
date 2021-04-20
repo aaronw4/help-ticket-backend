@@ -1,7 +1,7 @@
 const express = require("express");
-const userRoute = require("../users/users-route");
-const ticketRoute = require("../auth/tickets/tickets-route");
-const adminRoute = require("../auth/admin/admin-router");
+const userRoute = require("./users/users-route");
+const ticketRoute = require("./auth/tickets/tickets-route");
+const adminRoute = require("./auth/admin/admin-router");
 const cors = require("cors");
 const server = express();
 
