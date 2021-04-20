@@ -11,14 +11,14 @@ https://dev-desk-que-3-bw.herokuapp.com/
 - "dotenv": "^8.2.0",
 - "express": "^4.17.1",
 - "jsonwebtoken": "^8.5.1",
-- "knex": "^0.20.4",
-- "knex-cleaner": "^1.3.0",
-- "pg": "^7.15.0",
-- "sqlite3": "^4.1.1"
+- "knex": "^0.95.4",
+- "knex-cleaner": "^1.3.1",
+- "pg": "^8.6.0",
+- "sqlite3": "^5.0.02"
 
 ## devDependencies
 
-- "nodemon": "^1.19.1",
+- "nodemon": "^2.0.7",
 
 # Data Structures
 
