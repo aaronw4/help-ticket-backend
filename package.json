@@ -1,35 +1,35 @@
 {
-  "name": "buildweek-devdesk",
+  "name": "help-ticket-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://dev-desk-que-3-bw.herokuapp.com/",
   "main": "index.js",
-  "scripts": {
-    "test": "jest --watch",
-    "knex:init": "knex init",
-    "latest": "heroku run knex migrate:latest --app dev-desk-que-3-bw",
-    "rollback": "heroku pg:reset --app dev-desk-que-3-bw",
-    "seed": "heroku run knex seed:run --app dev-desk-que-3-bw",
-    "start": "node index.js",
-    "server": "nodemon index.js",
-    "logs": "heroku logs --app dev-desk-que-3-bw"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "jest": "^26.6.3",
-    "nodemon": "^2.0.7",
-    "supertest": "^4.0.2"
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.15",
+    "knex": "^0.95.4",
     "knex-cleaner": "^1.3.1",
-    "pg": "^7.18.2",
-    "sqlite3": "^4.2.0"
-  }
+    "nodemon": "^2.0.7",
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronw4/help-ticket-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaronw4/help-ticket-backend/issues"
+  },
+  "homepage": "https://github.com/aaronw4/help-ticket-backend#readme"
 }
