@@ -1,7 +1,8 @@
 {
   "name": "help-ticket-backend",
   "version": "1.0.0",
-  "description": "","engines": {
+  "description": "",
+  "engines": {
     "npm": "6.14.13",
     "node": "12.13.1"
   },
