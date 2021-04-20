@@ -1,5 +1,3 @@
-require("dotenv").config();
-const pg = require("pg");
 
 module.exports = {
   development: {
@@ -19,24 +17,8 @@ module.exports = {
         connection.run("PRAGMA foreign_keys = ON", done);
       }
     }
-  },
-  production: {
-    client: "pg",
-    connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations",
-      directory: "./database/migrations"
-    },
-    seeds: {
-      directory: "./database/seeds"
-    },
-    useNullAsDefault: true
-  },
-  test: {
+  },  
+  testing: {
     client: "sqlite3",
     connection: {
       filename: "./data/devdesk.db3"
